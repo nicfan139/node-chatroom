@@ -5,6 +5,7 @@ Chatroom app using Node.js and Socket.io
 
 * Clone this repo to a new local directory
 * Run `node index.js` in the terminal
+* Open browser on _localhost:8000_
 
 ## Dependencies
 * Node.js
