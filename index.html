@@ -1,24 +1,24 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Chatroom</title>
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; background-color: whitesmoke;}
-      h1 { text-align: center; font-weight: bold; padding: 10px 30px; font-size: 40px; text-shadow: 2px 2px rgba(50,50,50,0.3); }
+      body { font: 13px Helvetica, Arial; background-image: linear-gradient(rgba(200,200,200,0.4), rgba(200,200,200,0.4) 50%), url('https://c1.staticflickr.com/4/3043/2553570276_1106779499_b.jpg'); background-size: cover;}
+      h1 { color: white; text-align: center; padding: 20px 30px; font-size: 40px; text-shadow: 1px 1px rgba(50,50,50,0.5); background: lightgreen; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.2);}
       form { padding: 3px; position: fixed; bottom: 0; width: 100%; display: flex; justify-content: center; align-items: center;}
-      form input { font-size: 20px; border: 0; padding: 10px; width: 50%; margin: 10px 20px; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.5);}
-      form button { font-size: 20px; width: 9%; color: grey; background: lightgreen; border: none; padding: 10px; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.5);}
+      form input { font-size: 20px; border: 0; padding: 10px 25px; width: 50%; margin: 10px 20px; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.2);}
+      form button { font-size: 20px; color: black; text-shadow: 1px 1px rgba(50,50,50,0.5); background: lightgreen; border: none; padding: 10px 40px; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.2);}
       #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; height: 25px; }
-      #messages li:nth-child(odd) { background: #eee; }
+      #messages li { font-size: 16px; background-color: rgba(220,220,220,0.8); padding: 10px 20px; margin: 20px auto; height: 40px; width: 60%; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.1);}
+      #messages li:nth-child(odd) { font-size: 16px; background-color: rgba(255,255,255,0.8); padding: 10px 20px; margin: 20px auto; height: 40px; width: 60%; border-radius: 20px; box-shadow: 0px 2px 3px 2px rgba(50,50,50,0.1);}
     </style>
   </head>
   <body>
-    <h1>Chatroom</h1>
+    <h1>Chat away!</h1>
     <ul id="messages"></ul>
     <form action="">
-      <input id="message" autocomplete="off" placeholder="Enter a message!" /><button>Send</button>
+      <input id="message" autocomplete="off" placeholder="Enter a message!" /><button id="send">Send</button>
     </form>
 
     <!-- Socket.io Script -->
@@ -27,9 +27,11 @@
     <script>
       $(function () {
         var socket = io();
+        var button = document.getElementById('send')
         $('form').submit(function(){
           socket.emit('chat message', $('#message').val());
           $('#message').val('');
+          button.innerHTML = "Another one!";
           return false;
         });
         socket.on('chat message', function(msg){
